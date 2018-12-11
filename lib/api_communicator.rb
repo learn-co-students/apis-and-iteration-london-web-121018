@@ -24,13 +24,30 @@ def get_character_movies_from_api(character_name)
   #  of movies by title. Have a play around with the puts with other info about a given film.
 end
 
-def print_movies(films)
-  films.each {|films| puts films}
+def movies_stat(film)
+    film.map do |elem|
+      movie_string = RestClient.get(elem)
+      movie_hash = JSON.parse(movie_string)
+  end
+end
+
+
+def print_movies(stats)
+  puts ""
+  stats.each do |elem|
+      puts "Title: #{elem["title"]}
+      Episode: #{elem["episode_id"]}
+      Director: #{elem["director"]}
+      Release date: #{elem["release_date"]}"
+      puts "--------------------------------------"
+  end
 end
 
 def show_character_movies(character)
   films = get_character_movies_from_api(character)
-  print_movies(films)
+  stats = movies_stat(films)
+  #binding.pry
+  print_movies(stats)
 end
 
 ## BONUS
